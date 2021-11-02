@@ -136,6 +136,7 @@ local plugins = {
 
     -- colorschemes
 	'morhetz/gruvbox',
+    'joshdick/onedark.vim',
 
     -- syntax checker for various programming languages
     -- 'scrooloose/syntastic'
@@ -254,10 +255,8 @@ vim.fn['plug#end']()
 -- Colors
 ---------
 
-local theme = 'gruvbox'
-local lightline_theme = theme
+vim.api.nvim_command('colorscheme ' .. 'onedark')
 
-vim.api.nvim_command('colorscheme ' .. theme)
 ---------------
 -- Autocommands
 ---------------
@@ -337,7 +336,7 @@ g.gruvbox_contrast = 'medium'
 g.airline_powerline_fonts = 1
 g["airline#extensions#tabline#enabled"] = 1
 g["airline#extensions#tabline#fnamemod"] = ':t'
-g.airline_theme = 'gruvbox'
+g.airline_theme = 'onedark'
 
 
 ------------
