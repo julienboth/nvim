@@ -167,34 +167,23 @@ local plugins = {
     -- display marks
 	'kshenoy/vim-signature',
 
-    -- highlighting for i3-wm's config file
-	'PotatoesMaster/i3-vim-syntax',
-
-    -- completion plugin for several languages
-	--'Valloric/YouCompleteMe',
-    -- and for python
-	--'davidhalter/jedi-vim',
-
-    -- fuzzy file search
+    -- Nerdtree
 	'scrooloose/nerdtree',
 	'Xuyuanp/nerdtree-git-plugin',
 
-    -- rst support
+    -- rst support Python doku 
 	'Rykka/riv.vim',
 	'Rykka/InstantRst',
 
     -- Table Mode
 	'dhruvasagar/vim-table-mode',
 
-    -- Rust
-	'rust-lang/rust.vim',
-
-    -- Typescript
-	'leafgarland/typescript-vim',
-
+    -- die Kuh
 	'mhinz/vim-startify',
-
-	'dag/vim-fish',
+    
+    -- nerd fonts
+   'ryanoasis/vim-devicons',
+    'kyazdani42/nvim-web-devicons',
 
     -- Make the yanked region apparent!
 	'machakann/vim-highlightedyank',
@@ -229,7 +218,7 @@ local plugins = {
 
 	--'ihsanturk/neuron.vim',
 
-    -- Better spell checking
+    -- Better spell checking Rechtschreibtesten TODO: Config if necessary
 	'vigoux/LanguageTool.nvim',
 
     -- NeoVim LSP config
@@ -344,6 +333,12 @@ g.airline_theme = 'onedark'
 ------------
 require'lspconfig'.pyright.setup{}
 local nvim_lsp = require('lspconfig')
+
+require'lspconfig'.sqlls.setup{
+  cmd = {"/opt/homebrew/bin/sql-language-server", "up", "--method", "stdio"};
+}
+
+
 local on_attach = function(client, bufnr)
   local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
   local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
@@ -353,8 +348,8 @@ local on_attach = function(client, bufnr)
   -- Mappings.
   local opts = { noremap=true, silent=true }
   buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-  buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
-  buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
+  buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts) -- springt zur Funktions definition
+  buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts) -- hover over und gibt textbox wieder
   buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
   buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
   buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
@@ -365,7 +360,7 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
   buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
   buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
-  buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
+  buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts) --spring zu den nächsten fehlern
   buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
   buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
 
